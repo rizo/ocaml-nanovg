@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: 1ca431e526297b2140042ee505f7e90a)
+version = "0.1.0"
+description = "NanoVG bindings for OCaml"
+requires = "glfw ctypes ctypes.foreign"
+archive(byte) = "nanovg.cma"
+archive(byte, plugin) = "nanovg.cma"
+archive(native) = "nanovg.cmxa"
+archive(native, plugin) = "nanovg.cmxs"
+exists_if = "nanovg.cmxa"
+# OASIS_STOP
+

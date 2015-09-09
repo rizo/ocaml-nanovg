@@ -1,0 +1,32 @@
+Name:        ocaml-nanovg
+Version:     0.1.0
+License:     http://movvo.com
+Authors:     Rizo Isrof <rizo@odis.io>
+Maintainers: Rizo Isrof <rizo@odis.io>
+Synopsis:    NanoVG bindings for OCaml
+Homepage:    http://github.com/rizo/ocaml-nanovg
+OASISFormat: 0.4
+BuildTools:  camlp4o,ocamlbuild
+Plugins:     META (0.4), DevFiles (0.4)
+
+Library "nanovg"
+    Path:           src
+    Modules:        NanoVG
+    Install:        true
+    CompiledObject: native
+    BuildDepends:   glfw, ctypes, ctypes.foreign
+    CSources:       nanovg_stubs.c nanovg_gl_stubs.h
+    CCOpt:          -DNANOVG_GL3_IMPLEMENTATION
+
+Executable "test_nanovg"
+    Path:           src
+    MainIs:         test_nanovg.ml
+    CompiledObject: native
+    Install:        false
+    BuildDepends:   nanovg, glfw, tgls.tgl3
+
+SourceRepository master
+  Type:     git
+  Location: https://github.com/rizo/ocaml-nanovg.git
+  Browser:  https://github.com/rizo/ocaml-nanovg
+
