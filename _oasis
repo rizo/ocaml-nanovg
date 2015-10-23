@@ -15,15 +15,14 @@ Library "nanovg"
     Install:        true
     CompiledObject: native
     BuildDepends:   glfw, ctypes, ctypes.foreign
-    CSources:       nanovg_stubs.c nanovg_gl_stubs.h
-    CCOpt:          -DNANOVG_GL3_IMPLEMENTATION
+    CCLib:          -lnanovg_gl3
 
 Executable "test_nanovg"
     Path:           src
     MainIs:         test_nanovg.ml
     CompiledObject: native
     Install:        false
-    BuildDepends:   nanovg, glfw, tgls.tgl3
+    BuildDepends:   nanovg, glfw, tgls.tgl3, threads
 
 SourceRepository master
   Type:     git

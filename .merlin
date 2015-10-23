@@ -2,5 +2,5 @@ S src
 B _build
 B _build/src
 
-PKG ctypes ctypes.foreign tgls
+PKG ctypes ctypes.foreign tgls glfw threads
 
