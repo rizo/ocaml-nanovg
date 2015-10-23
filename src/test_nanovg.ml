@@ -102,8 +102,9 @@ let () =
     points := p_m :: !points;
 
     Vg.begin_frame vg blueprint_width_px_i blueprint_height_px_i px_ratio;
-    draw_device_path vg (List.take (!points) 200);
+    draw_device_path vg (List.take (!points) 10);
     Vg.end_frame vg;
+    (* Thread.delay 0.1; *)
 
     Glfw.swap_buffers win;
     Glfw.poll_events ();
