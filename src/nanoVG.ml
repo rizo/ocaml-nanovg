@@ -121,6 +121,9 @@ let image_pattern =
 let fill_paint =
   foreign "nvgFillPaint" (context @-> paint @-> returning void)
 
+let create_gl2 =
+  foreign "nvgCreateGL2" (int @-> returning context)
+
 let create_gl3 =
   foreign "nvgCreateGL3" (int @-> returning context)
 

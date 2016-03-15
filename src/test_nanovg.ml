@@ -69,6 +69,7 @@ let draw_device_path vg points t =
   fill_color vg (Vg.rgba 255 55 25 200);
   fill vg
 
+let gl_version = 2
 
 let () =
   let init_status = Glfw.init () in
@@ -76,10 +77,19 @@ let () =
       (Log.err (fmt "could not init GLFW, status = %d" init_status);
        exit 1) in
 
-  Glfw.window_hint Glfw.context_version_major 3;
-  Glfw.window_hint Glfw.context_version_minor 2;
-  Glfw.window_hint Glfw.opengl_forward_compat 1;
-  Glfw.window_hint Glfw.opengl_profile Glfw.opengl_core_profile;
+  let vg_create_gl =
+    match gl_version with
+  | 3 ->
+    Glfw.window_hint Glfw.context_version_major 3;
+    Glfw.window_hint Glfw.context_version_minor 2;
+    Glfw.window_hint Glfw.opengl_forward_compat 1;
+    Glfw.window_hint Glfw.opengl_profile Glfw.opengl_core_profile;
+    Vg.create_gl3
+  | 2 ->
+    Glfw.window_hint Glfw.context_version_major 3;
+    Glfw.window_hint Glfw.context_version_minor 2;
+    Vg.create_gl2
+  | _ -> invalid_arg "bad gl version" in
 
   let win = Glfw.create_window
       (int_of_float blueprint_width_px)
@@ -87,7 +97,7 @@ let () =
       "GLFW OCaml Demo" Glfw.null Glfw.null in
   Glfw.make_context_current win;
 
-  let vg = Vg.(create_gl3 (antialias lor stencil_strokes lor debug)) in
+  let vg = vg_create_gl Vg.(antialias lor stencil_strokes lor debug) in
 
   (* Geometry *)
   let fb_width,  fb_height  = Glfw.get_framebuffer_size win in

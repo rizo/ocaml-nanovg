@@ -23,7 +23,7 @@ solution "nanovg"
 			flags { "Optimize", "ExtraWarnings"}
 
 	project "nanovg_gl3"
-		kind "ConsoleApp"
+		kind "SharedLib"
 		language "C"
 		files { "src/nanovg.c", "src/nanovg_gl3.c" }
 		includedirs { "src" }
@@ -50,222 +50,17 @@ solution "nanovg"
 			defines { "NDEBUG" }
 			flags { "Optimize", "ExtraWarnings"}
 
-	project "example_gl2"
-
-		kind "ConsoleApp"
+	project "nanovg_gl2"
+		kind "SharedLib"
 		language "C"
-		files { "example/example_gl2.c", "example/demo.c", "example/perf.c" }
-		includedirs { "src", "example" }
+		files { "src/nanovg.c", "src/nanovg_gl2.c" }
+		includedirs { "src" }
 		targetdir("build")
-		links { "nanovg" }
 
 		configuration { "linux" }
 			 linkoptions { "`pkg-config --libs glfw3`" }
 			 links { "GL", "GLU", "m", "GLEW" }
 			 defines { "NANOVG_GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-	project "example_gl3"
-		kind "ConsoleApp"
-		language "C"
-		files { "example/example_gl3.c", "example/demo.c", "example/perf.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-		links { "nanovg" }
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
-			 defines { "NANOVG_GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-
-	project "minitest"
-		kind "ConsoleApp"
-		language "C"
-		files { "example/minitest.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-        links {"nanovg"}
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
-			 defines { "NANOVG_GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-	project "example_gl2_msaa"
-		kind "ConsoleApp"
-		language "C"
-		defines { "DEMO_MSAA" }
-		files { "example/example_gl2.c", "example/demo.c", "example/perf.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-		links { "nanovg" }
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
-			 defines { "NANOVG_GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-	project "example_gl3_msaa"
-		kind "ConsoleApp"
-		language "C"
-		defines { "DEMO_MSAA" }
-		files { "example/example_gl3.c", "example/demo.c", "example/perf.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-		links { "nanovg" }
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
-			 defines { "NANOVG_GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-	project "example_fbo"
-		kind "ConsoleApp"
-		language "C"
-		files { "example/example_fbo.c", "example/perf.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-		links { "nanovg" }
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-	project "example_gles2"
-		kind "ConsoleApp"
-		language "C"
-		files { "example/example_gles2.c", "example/demo.c", "example/perf.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-		links { "nanovg" }
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
-
-		configuration { "windows" }
-			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }
-			 defines { "NANOVG_GLEW", "_CRT_SECURE_NO_WARNINGS" }
-
-		configuration { "macosx" }
-			links { "glfw3" }
-			linkoptions { "-framework OpenGL", "-framework Cocoa", "-framework IOKit", "-framework CoreVideo" }
-
-		configuration "Debug"
-			defines { "DEBUG" }
-			flags { "Symbols", "ExtraWarnings"}
-
-		configuration "Release"
-			defines { "NDEBUG" }
-			flags { "Optimize", "ExtraWarnings"}
-
-	project "example_gles3"
-		kind "ConsoleApp"
-		language "C"
-		files { "example/example_gles3.c", "example/demo.c", "example/perf.c" }
-		includedirs { "src", "example" }
-		targetdir("build")
-		links { "nanovg" }
-
-		configuration { "linux" }
-			 linkoptions { "`pkg-config --libs glfw3`" }
-			 links { "GL", "GLU", "m", "GLEW" }
 
 		configuration { "windows" }
 			 links { "glfw3", "gdi32", "winmm", "user32", "GLEW", "glu32","opengl32", "kernel32" }

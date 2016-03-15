@@ -15,7 +15,7 @@ Library "nanovg"
     Install:        true
     CompiledObject: native
     BuildDepends:   glfw, ctypes, ctypes.foreign
-    CCLib:          -lnanovg_gl3
+    CCLib:          -lnanovg_gl2
 
 Executable "test_nanovg"
     Path:           src
