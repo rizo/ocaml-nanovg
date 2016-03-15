@@ -1,4 +1,17 @@
 
+let fmt = Printf.sprintf
+module Spaces = struct
+  let size_p = function
+    | 9 -> (1483.0, 748.0)
+    | 167 -> (1166.0, 600.0)
+    | s -> invalid_arg ("no data for space " ^ string_of_int s)
+
+  let size_m = function
+    | 9 -> (185.38, 93.5)
+    | 167 -> (88.03, 74.32)
+    | s -> invalid_arg ("no data for space " ^ string_of_int s)
+end
+
 open Tgl3
 
 module Str = struct
@@ -23,11 +36,10 @@ end
 
 module Vg = NanoVG
 
-let blueprint_image_path = "./9.jpg"
-let blueprint_width_px   = 1483.0
-let blueprint_height_px  = 748.0
-let blueprint_width_m    = 185.375
-let blueprint_height_m   = 93.5
+let space = int_of_string Sys.argv.(1)
+let blueprint_image_path = fmt "./resources/%d.jpg" space
+let blueprint_width_px, blueprint_height_px = Spaces.size_p space
+let blueprint_width_m,  blueprint_height_m  = Spaces.size_m space
 
 
 let fmt = Printf.sprintf
@@ -95,7 +107,7 @@ let () =
   Gl.clear (Gl.color_buffer_bit lor Gl.depth_buffer_bit lor Gl.stencil_buffer_bit);
 
   (* Background *)
-  let img = Vg.create_image vg "/Users/rizo/Desktop/9.jpg" 0 in
+  let img = Vg.create_image vg blueprint_image_path 0 in
   let (iw, ih) =
   let iw_int, ih_int = Vg.get_image_size vg img in
   (float_of_int iw_int, float_of_int ih_int) in
@@ -109,7 +121,7 @@ let () =
 
   Gl.flush();
 
-  let font_status = Vg.create_font vg "sans-bold" "/Users/rizo/Desktop/Roboto-Bold.ttf" in
+  let font_status = Vg.create_font vg "sans-bold" "resources/pragmatapro.ttf" in
   print_endline (fmt "font_status = %d" font_status);
 
   (* Vg.begin_frame vg (int_of_float blueprint_width_px) (int_of_float blueprint_height_px) px_ratio; *)
@@ -162,22 +174,22 @@ let () =
       (int_of_float blueprint_height_px) px_ratio;
     Vg.restore vg;
     Vg.begin_path vg;
-    Vg.ellipse vg x_m y_m 5.0 5.0;
+    Vg.ellipse vg x_m y_m 1.0 1.0;
     Vg.fill_color vg (Vg.rgba 255 55 25 200);
     Vg.fill vg;
     Vg.save vg;
     Vg.end_frame vg;
 
     print_endline (fmt "ts: %s, dev: %s, x: %f, y: %f" ts_str dev x_m y_m);
-    Thread.delay 0.1;
+    (* Thread.delay 0.1; *)
 
     (* Glfw.swap_buffers win; *)
 
 
 
-    (* if !i mod 100 = 0 then begin *)
-    Gl.flush ();
-    (* end; *)
+    if !i mod 5000 = 0 then begin
+      Gl.flush ();
+    end;
 
     i := !i + 1;
 
