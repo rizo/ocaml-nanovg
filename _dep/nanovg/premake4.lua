@@ -23,7 +23,7 @@ solution "nanovg"
 			flags { "Optimize", "ExtraWarnings"}
 
 	project "nanovg_gl3"
-		kind "ConsoleApp"
+		kind "SharedLib"
 		language "C"
 		files { "src/nanovg.c", "src/nanovg_gl3.c" }
 		includedirs { "src" }
