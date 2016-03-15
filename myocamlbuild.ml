@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 1735b61f4de9e38c4e488b2628af30a7) *)
+(* DO NOT EDIT (digest: caafb444a568f0cdbc77391d5b22b3a2) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -608,14 +608,13 @@ open Ocamlbuild_plugin;;
 let package_default =
   {
      MyOCamlbuildBase.lib_ocaml = [("nanovg", ["src"], [])];
-     lib_c = [("nanovg", "src", ["src/nanovg_stubs.c nanovg_gl_stubs.h"])];
+     lib_c = [];
      flags =
        [
-          (["oasis_library_nanovg_ccopt"; "compile"],
-            [
-               (OASISExpr.EBool true,
-                 S [A "-ccopt"; A "-DNANOVG_GL3_IMPLEMENTATION"])
-            ])
+          (["oasis_library_nanovg_cclib"; "link"],
+            [(OASISExpr.EBool true, S [A "-cclib"; A "-lnanovg_gl3"])]);
+          (["oasis_library_nanovg_cclib"; "ocamlmklib"; "c"],
+            [(OASISExpr.EBool true, S [A "-lnanovg_gl3"])])
        ];
      includes = []
   }
@@ -625,6 +624,6 @@ let conf = {MyOCamlbuildFindlib.no_automatic_syntax = false}
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default conf package_default;;
 
-# 629 "myocamlbuild.ml"
+# 628 "myocamlbuild.ml"
 (* OASIS_STOP *)
 Ocamlbuild_plugin.dispatch dispatch_default;;
